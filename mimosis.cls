@@ -17,6 +17,14 @@
 \RequirePackage{ifxetex}
 \RequirePackage{ifluatex}
 
+\newif\ifnochapnum
+
+\DeclareOption{nochapnum}{
+    \nochapnumtrue
+}
+
+\ProcessOptions \relax
+
 \newif\ifxetexorluatex
 \ifxetex
   \xetexorluatextrue
@@ -33,6 +41,8 @@
 \else
   \RequirePackage[utf8]{inputenc}
 \fi
+
+\RequirePackage{tabularx}
 
 % Makes it possible to switch between different languages in the text
 % while keeping hyphenation rules correct. Should you add another one
@@ -55,6 +65,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{heiaBlue}{RGB}{0,119,179}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Graphics
@@ -238,5 +250,16 @@
 
 % Large number for chapter
 \renewcommand*{\chapterformat}{%
-  \fontsize{50}{55}\selectfont\thechapter\autodot\enskip
+  \textcolor{heiaBlue}{\fontsize{50}{55}\selectfont\thechapter\autodot\enskip}
 }
+
+\renewcommand*{\sectionformat}{%
+  \textcolor{heiaBlue}{\thesection}\autodot\enskip%
+}
+\renewcommand*{\subsectionformat}{%
+  \textcolor{heiaBlue}{\thesubsection}\autodot\enskip%
+}
+
+\ifnochapnum
+  \renewcommand\thesection{\arabic{section}}
+\fi
